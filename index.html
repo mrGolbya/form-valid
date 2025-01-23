@@ -41,6 +41,23 @@
       <span class="field__errors" id="password-errors" data-js-form-field-errors></span>
     </p>
     <p class="field">
+      <label class="field__label" for="tel">Телефон</label>
+      <input
+      data-phone-pattern
+      data-phone-clear="false"
+        class="field__control"
+        id="tel"
+        name="tel"
+        type="tel"
+        required
+        maxlength="17"
+        pattern="(?=.*\d).{17,17}"
+        title="телефон введён не верно"
+        aria-errormessage="password-errors"
+      />
+      <span class="field__errors" id="password-errors" data-js-form-field-errors></span>
+    </p>
+    <p class="field">
       <label class="field__label" for="about">О себе</label>
       <textarea class="field__control" id="about" name="about"></textarea>
     </p>
