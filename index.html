@@ -85,5 +85,53 @@
     </div>
     <button type="submit">Регистрация</button>
   </form>
+  <form id="regForm" action="/registration" method="post" novalidate data-js-form>
+  
+
+    <p class="field">
+      <label class="field__label" for="about">О себе</label>
+      <textarea class="field__control" id="about" name="about"></textarea>
+    </p>
+    <fieldset class="radios">
+      <legend class="radios__legend">Ваш пол</legend>
+
+      <input
+        class="radios__control"
+        id="male"
+        name="gender"
+        type="radio"
+        value="Мужской"
+        required
+        aria-errormessage="password-errors"
+      />
+      <label class="radios__label" for="male">Мужской</label>
+
+      <input
+        class="radios__control"
+        id="female"
+        name="gender"
+        type="radio"
+        value="Женский"
+        required
+        aria-errormessage="password-errors"
+      />
+      <label class="radios__label" for="female">Женский</label>
+
+      <span class="field__errors" id="gender-errors" data-js-form-field-errors></span>
+    </fieldset>
+    <div class="field checkbox">
+      <input
+        class="checkbox__control"
+        id="agreement"
+        name="agreement"
+        type="checkbox"
+        required
+        aria-errormessage="agreement-errors"
+      />
+      <label class="field__label checkbox__label" for="agreement">Согласен на всё</label>
+      <span class="field__errors" id="agreement-errors" data-js-form-field-errors></span>
+    </div>
+    <button type="submit">Регистрация</button>
+  </form>
 </body>
 </html>
