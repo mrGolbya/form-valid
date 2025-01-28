@@ -18,7 +18,7 @@ class FormsValidation {
   //визуализация ошибок
   manageErrors(fieldControlElement, errorMessages) {
     const fieldErrorsElement = fieldControlElement.parentElement.querySelector(this.selectors.fieldErrors)
-
+console.log(errorMessages)
     fieldErrorsElement.innerHTML = errorMessages
       .map((message) => `<span class="field__error">${message}</span>`)
       .join('')
@@ -46,7 +46,7 @@ class FormsValidation {
   
   onBlur(event) {
     const { target } = event
-    const isFormField = target.closest(this.selectors.form)
+    const isFormField = target.closest(this.selectors.form)//элемент на котором возникло событие находится внутри form
     const isRequired = target.required
 
     if (isFormField && isRequired) {
@@ -109,7 +109,7 @@ let eventCalllback = function (e) {
   let el = e.target,
     clearVal = el.dataset.phoneClear,
     pattern = el.dataset.phonePattern,
-    matrix_def = "+7(___) ___-__-__",
+    matrix_def = "+7 (___) ___-__-__",
     matrix = pattern ? pattern : matrix_def,
     i = 0,
     def = matrix.replace(/\D/g, ""),
@@ -138,7 +138,3 @@ function getMaskForm() {
   }
 }
 getMaskForm();
-
-document.querySelectorAll("form button").forEach((e) => {
-  e.addEventListener("click", (i) => i.preventDefault());
-});
