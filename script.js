@@ -4,7 +4,6 @@ class FormsValidation {
     form: '[data-js-form]',
     fieldErrors: '[data-js-form-field-errors]'
   }
-
   errorMessages = {
     valueMissing: () => 'Пожалуйста, заполните это поле',
     patternMismatch: ({ title }) => title || 'Данные не соответствуют формату',
@@ -18,7 +17,6 @@ class FormsValidation {
   //визуализация ошибок
   manageErrors(fieldControlElement, errorMessages) {
     const fieldErrorsElement = fieldControlElement.parentElement.querySelector(this.selectors.fieldErrors)
-console.log(errorMessages)
     fieldErrorsElement.innerHTML = errorMessages
       .map((message) => `<span class="field__error">${message}</span>`)
       .join('')
@@ -69,14 +67,14 @@ console.log(errorMessages)
     if (!isFormElement) {
       return
     }
-
+    
     const requiredControlElements = [...event.target.elements].filter(({ required }) => required)
     let isFormValid = true
     let firstInvalidFieldControl = null
-
+   
     requiredControlElements.forEach((element) => {
       const isFieldValid = this.validateField(element)
-
+      
       if (!isFieldValid) {
         isFormValid = false
 
@@ -90,6 +88,8 @@ console.log(errorMessages)
       event.preventDefault()
       firstInvalidFieldControl.focus()
     }
+    if(isFormValid) console.log(11111)
+    
   }
 
   bindEvents() {
@@ -99,6 +99,8 @@ console.log(errorMessages)
     document.addEventListener('change', (event) => this.onChange(event))
     document.addEventListener('submit', (event) => this.onSubmit(event))
   }
+
+  
 }
 
 new FormsValidation()
