@@ -79,7 +79,8 @@ class FormsValidation {
       });
       if (!response.ok) {
         throw new Error(
-          `Ошибка по адресу ${window.location.href}, статус ошибки ${response.status
+          `Ошибка по адресу ${window.location.href}, статус ошибки ${
+            response.status
           },${response.json()},${response}`
         );
       }
@@ -170,8 +171,8 @@ function getMaskPhone() {
       return /[_\d]/.test(a) && i < val.length
         ? val.charAt(i++)
         : i >= val.length
-          ? ""
-          : a;
+        ? ""
+        : a;
     });
   };
 
