@@ -44,7 +44,7 @@ class FormsValidation {
   
   onBlur(event) {
     const { target } = event
-    const isFormField = target.closest(this.selectors.form)//элемент на котором возникло событие находится внутри form
+    const isFormField = target.closest(this.selectors.form)
     const isRequired = target.required
 
     if (isFormField && isRequired) {
@@ -62,7 +62,15 @@ class FormsValidation {
     }
   }
 
+  getFormElement(e) {
+    const FORM_DATA = new FormData(e.target)
+    e.target.reset()
+    
+  }
+
   onSubmit(event) {
+    
+
     const isFormElement = event.target.matches(this.selectors.form)
     if (!isFormElement) {
       return
@@ -87,27 +95,30 @@ class FormsValidation {
     if (!isFormValid) {
       event.preventDefault()
       firstInvalidFieldControl.focus()
+      this.getFormElement(event)
     }
-    if(isFormValid) console.log(11111)
     
+    if(isFormValid) {
+      getFormElement(event)//delete value form
+    }
+   
   }
 
   bindEvents() {
     document.addEventListener('blur', (event) => {
       this.onBlur(event)
-    }, { capture: true })//перехватываем события на самом документе
+    }, { capture: true })
     document.addEventListener('change', (event) => this.onChange(event))
     document.addEventListener('submit', (event) => this.onSubmit(event))
   }
 
-  
 }
 
 new FormsValidation()
 
 //mask phone
 
-let eventCalllback = function (e) {
+let eventCallback = function (e) {
   let el = e.target,
     clearVal = el.dataset.phoneClear,
     pattern = el.dataset.phonePattern,
@@ -115,15 +126,15 @@ let eventCalllback = function (e) {
     matrix = pattern ? pattern : matrix_def,
     i = 0,
     def = matrix.replace(/\D/g, ""),
-    val = e.target.value.replace(/\D/g, "");
+    val = el.value.replace(/\D/g, "");
   if (clearVal !== "false" && e.type === "blur") {
     if (val.length < matrix.match(/([\_\d])/g).length) {
-      e.target.value = "";
+      el.value = "";
       return;
     }
   }
   if (def.length >= val.length) val = def;
-  e.target.value = matrix.replace(/./g, function (a) {
+  el.value = matrix.replace(/./g, function (a) {
     return /[_\d]/.test(a) && i < val.length
       ? val.charAt(i++)
       : i >= val.length
@@ -135,7 +146,7 @@ function getMaskForm() {
   let phone_inputs = document.querySelectorAll("[data-phone-pattern]");
   for (let elem of phone_inputs) {
     for (let ev of ["input", "blur", "focus"]) {
-      elem.addEventListener(ev, eventCalllback);
+      elem.addEventListener(ev, eventCallback);
     }
   }
 }
