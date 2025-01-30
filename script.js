@@ -131,13 +131,15 @@ class FormsValidation {
   }
 
   bindEvents() {
-    document.addEventListener(
-      "blur",
-      (event) => {
-        this.onBlur(event);
-      },
-      { capture: true }
-    );
+    for (let ev of ["input", "blur"]) {
+      document.addEventListener(
+        ev,
+        (event) => {
+          this.onBlur(event);
+        },
+        { capture: true }
+      );
+    }
     document.addEventListener("change", (event) => this.onChange(event));
     document.addEventListener("submit", (event) => this.onSubmit(event));
   }
