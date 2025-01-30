@@ -65,7 +65,7 @@ class FormsValidation {
   getFormElement(e) {
     const FORM_DATA = new FormData(e.target)
     e.target.reset()
-    
+
   }
 
   onSubmit(event) {
@@ -95,7 +95,7 @@ class FormsValidation {
     if (!isFormValid) {
       event.preventDefault()
       firstInvalidFieldControl.focus()
-      this.getFormElement(event)
+      // this.getFormElement(event)
     }
     
     if(isFormValid) {
@@ -118,31 +118,33 @@ new FormsValidation()
 
 //mask phone
 
-let eventCallback = function (e) {
-  let el = e.target,
-    clearVal = el.dataset.phoneClear,
-    pattern = el.dataset.phonePattern,
-    matrix_def = "+7 (___) ___-__-__",
-    matrix = pattern ? pattern : matrix_def,
-    i = 0,
-    def = matrix.replace(/\D/g, ""),
-    val = el.value.replace(/\D/g, "");
-  if (clearVal !== "false" && e.type === "blur") {
-    if (val.length < matrix.match(/([\_\d])/g).length) {
-      el.value = "";
-      return;
+function getMaskPhone() {
+
+  let eventCallback = function (e) {
+    let el = e.target,
+      clearVal = el.dataset.phoneClear,
+      pattern = el.dataset.phonePattern,
+      matrix_def = "+7 (___) ___-__-__",
+      matrix = pattern ? pattern : matrix_def,
+      i = 0,
+      def = matrix.replace(/\D/g, ""),
+      val = el.value.replace(/\D/g, "");
+    if (clearVal !== "false" && e.type === "blur") {
+      if (val.length < matrix.match(/([\_\d])/g).length) {
+        el.value = "";
+        return;
+      }
     }
-  }
-  if (def.length >= val.length) val = def;
-  el.value = matrix.replace(/./g, function (a) {
-    return /[_\d]/.test(a) && i < val.length
-      ? val.charAt(i++)
-      : i >= val.length
-      ? ""
-      : a;
-  });
-};
-function getMaskForm() {
+    if (def.length >= val.length) val = def;
+    el.value = matrix.replace(/./g, function (a) {
+      return /[_\d]/.test(a) && i < val.length
+        ? val.charAt(i++)
+        : i >= val.length
+        ? ""
+        : a;
+    });
+  };
+
   let phone_inputs = document.querySelectorAll("[data-phone-pattern]");
   for (let elem of phone_inputs) {
     for (let ev of ["input", "blur", "focus"]) {
@@ -150,4 +152,4 @@ function getMaskForm() {
     }
   }
 }
-getMaskForm();
+getMaskPhone();
