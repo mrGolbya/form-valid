@@ -17,9 +17,10 @@ class FormsValidation {
   //визуализация ошибок
   manageErrors(fieldControlElement, errorMessages) {
     const fieldErrorsElement = fieldControlElement.parentElement.querySelector(this.selectors.fieldErrors)
-    fieldErrorsElement.innerHTML = errorMessages
-      .map((message) => `<span class="field__error">${message}</span>`)
-      .join('')
+    fieldErrorsElement.textContent = errorMessages.map((message)=> `${message}`).join('')
+    // fieldErrorsElement.innerHTML = errorMessages
+    //   .map((message) => `<span class="field__error">${message}</span>`)
+    //   .join('')
   }
 
   validateField(fieldControlElement) {
